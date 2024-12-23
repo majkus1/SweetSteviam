@@ -1,0 +1,15 @@
+RewriteEngine On
+
+# Przekierowanie na HTTPS i www do non-www
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} ^www\. [NC]
+RewriteRule ^ https://sweetsteviam.com%{REQUEST_URI} [L,R=301]
+
+# Usuń .html
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule !.*\.html$ %{REQUEST_FILENAME}.html [L]
+
+# Zapobiegaj wyświetlaniu rzeczywistego pliku .html
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /.*\.html\ HTTP
+RewriteRule ^(.*)\.html$ /$1 [R=301,L]
+
